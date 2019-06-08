@@ -1,17 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <title>gshop</title>
-  </head>
-  <body>
-    <noscript>
-      <strong>We're sorry but gshop doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-    </noscript>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
-  </body>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+  <title>gshop</title>
+  <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="http://at.alicdn.com/t/font_1184458_pnqbs6fqgyb.css">
+  <!--解决点击响应延时 0.3s 问题-->
+  <script src="https://as.alipayobjects.com/g/component/fastclick/1.0.6/fastclick.js"></script>
+  <script>
+    if ('addEventListener' in document) {
+      document.addEventListener('DOMContentLoaded', function() {
+        FastClick.attach(document.body);
+      }, false);
+    }
+    if(!window.Promise) {
+      document.writeln('<script src="https://as.alipayobjects.com/g/component/es6-promise/3.2.2/es6-promise.min.js"'+'>'+'<'+'/'+'script>');
+    }
+    //解决IE10以下不支持Function.bind
+    /*if (!Function.prototype.bind) {
+      Function.prototype.bind = function(oThis) {
+        if (typeof this !== "function") {
+          throw new TypeError("Function.prototype.bind - what is trying to be bound is not callable");
+        }
+        var aArgs = Array.prototype.slice.call(arguments, 1),
+                fToBind = this,
+                fNOP = function() {},
+                fBound = function() {
+                  return fToBind.apply(this instanceof fNOP && oThis ? this : oThis,
+                          aArgs.concat(Array.prototype.slice.call(arguments)));
+                };
+        fNOP.prototype = this.prototype;
+        fBound.prototype = new fNOP();
+        return fBound;
+      };
+    }*/
+  </script>
+</head>
+<body>
+<noscript>
+  <strong>We're sorry but gshop doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+</noscript>
+<div id="app"></div>
+<!-- built files will be auto injected -->
+</body>
 </html>
