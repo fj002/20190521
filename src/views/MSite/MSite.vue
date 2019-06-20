@@ -69,6 +69,7 @@
 
         },
         mounted(){
+            this.$store.dispatch('getAddress');
             this.getCateGorys()
         },
         methods:{

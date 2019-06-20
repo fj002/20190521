@@ -11,9 +11,9 @@
                 </div>
             </div>
             <div class="login_content">
-                <form>
-                    <NoteLogin v-if="loginWay"/>
-                    <PwdLogin v-else/>
+                <form @submit.prevent="loginS">
+                    <NoteLogin ref="noteLogin" v-if="loginWay"/>
+                    <PwdLogin ref="pwdLogin" v-else/>
                     <button class="login_submit">登录</button>
                 </form>
                 <a href="javascript:;" class="about_us">关于我们</a>
@@ -28,6 +28,8 @@
 <script>
     import NoteLogin from './NoteLogin/NoteLogin'
     import PwdLogin from './PwdLogin/PwdLogin'
+    import { MessageBox } from 'mint-ui';
+    import { reqPwdLogin} from '../../api'
     export default {
         data(){
           return{
@@ -35,7 +37,72 @@
             }
         },
         methods:{
+           async loginS(){
+            const {loginWay} =this
+                if (loginWay){
+                    if(this.$refs.noteLogin.phone){
+                        if (!this.$refs.noteLogin.phoneState){
+                            MessageBox({
+                                title: '提示',
+                                message: '请先输入正确的手机号手机号',
+                                showCancelButton: true
+                            });
+                            return
+                        }
 
+                    }else{
+                        MessageBox({
+                            title: '提示',
+                            message: '请先输入手机号',
+                            showCancelButton: true
+                        });
+                        return
+                    }
+
+
+                } else {
+                    if(this.$refs.pwdLogin.name){
+                        /*if (!this.$refs.pwdLogin.phoneState){
+                            MessageBox({
+                                title: '提示',
+                                message: '请先输入正确的手机号手机号',
+                                showCancelButton: true
+                            });
+                            return
+                        }*/
+                        //发ajax请求登录
+                        const result=await reqPwdLogin(this.$refs.pwdLogin.name,this.$refs.pwdLogin.pwd,this.$refs.pwdLogin.captcha)
+
+                        if (result.code===0){
+                            const user=result.data
+                            //保存use信息到state中
+                            //路由跳转到个人中心
+                            this.$router.replace('/profile')
+                        } else {
+                            const msg=result.msg
+                            this.$refs.pwdLogin.clickCaptcha()
+                            MessageBox({
+                                title: '提示',
+                                message: msg,
+                                showCancelButton: true
+                            });
+                        }
+
+                    }else{
+                        MessageBox({
+                            title: '提示',
+                            message: '请先输入手机号',
+                            showCancelButton: true
+                        });
+                        return
+
+
+                    }
+
+
+                }
+
+            }
         },
         components:{
             NoteLogin,

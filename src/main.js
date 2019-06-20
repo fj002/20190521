@@ -5,11 +5,12 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import { Button,Swipe, SwipeItem} from 'mint-ui'
+import { Button,Swipe, SwipeItem,Switch} from 'mint-ui'
 //import 'mint-ui/lib/style.css'
 Vue.component(Button.name, Button)
 Vue.component(Swipe.name, Swipe);
 Vue.component(SwipeItem.name, SwipeItem);
+Vue.component(Switch.name, Switch);
 Vue.config.productionTip = false
 
 new Vue({

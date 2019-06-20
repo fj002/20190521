@@ -22,7 +22,8 @@
         data(){
             return{
                 phone:'',
-                computeTime:''
+                computeTime:'',
+                intervalId:''
 
             }
         },
@@ -33,13 +34,15 @@
         },
         methods:{
             getCode(){
+                let {intervalId} =this
                 if (!this.computeTime){
                     //初始值为30
                     this.computeTime=30
-                    const intervalId=setInterval(()=>{
+                    intervalId=setInterval(()=>{
                         this.computeTime--
                         if (this.computeTime===0){
                             clearInterval(intervalId)
+
                         }
                     },1000)
                 }

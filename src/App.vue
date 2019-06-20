@@ -10,7 +10,7 @@
   /*import {reqCategorys} from './api/index'*/
   export default {
     mounted(){
-      this.$store.dispatch('getAddress');
+
     },
     components:{
       FooterGuide
@@ -20,7 +20,7 @@
 
 <style lang="stylus" ref="stylesheet/stylus">
   #app
-    width: 100%;
-    height: 100%;
-    background: #f5f5f5;
+    width 100%
+    height 100%
+    background #f5f5f5
 </style>

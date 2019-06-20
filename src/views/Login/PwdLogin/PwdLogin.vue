@@ -1,24 +1,43 @@
 <template>
         <section class="pwd">
             <section class="login_message">
-                <input type="tel" maxlength="11" placeholder="手机/邮箱/用户名">
+                <input type="tel" maxlength="11" placeholder="手机/邮箱/用户名" v-model="name">
             </section>
             <section class="login_verification">
-                <input type="tel" maxlength="8" placeholder="密码">
-                <div class="switch_button off">
-                    <div class="switch_circle"></div>
-                    <span class="switch_text">...</span>
-                </div>
+                <input type="text" maxlength="8" placeholder="密码" v-model="pwd" v-if="value">
+                <input type="password" maxlength="8" placeholder="密码" v-model="pwd" v-else>
+                <mt-switch v-model="value"  class="switch_button"></mt-switch>
             </section>
             <section class="login_message">
-                <input type="text" maxlength="11" placeholder="验证码">
-                <img class="get_verification" src="../images/captcha.svg" alt="captcha">
+                <input type="text" maxlength="11" placeholder="验证码" v-model="captcha">
+                <img class="get_verification" src="http://localhost:4000/captcha" alt="captcha" @click="clickCaptcha" ref="captcha">
             </section>
         </section>
 </template>
 
 <script>
-    export default {}
+    export default {
+        data(){
+            return{
+                pwd:'',
+                name:'',
+                captcha:"",
+                value:false,
+                computeTime:''
+
+            }
+        },
+        computed:{
+            phoneState(){
+                return /^1\d{10}$/.test(this.name)
+            }
+        },methods:{
+
+            clickCaptcha(){
+                this.$refs.captcha.src='http://localhost:4000/captcha?time='+Date.now()
+            }
+        }
+    }
 </script>
 
 <style lang="stylus" ref="stylesheet/stylus">
@@ -57,37 +76,10 @@
             font-size 14px
             background #fff
             .switch_button
-                font-size 12px
-                border 1px solid #ddd
-                border-radius 8px
-                transition background-color .3s,border-color .3s
-                padding 0 6px
-                width 30px
-                height 16px
-                line-height 16px
-                color #fff
                 position absolute
-                top 50%
                 right 10px
                 transform translateY(-50%)
-                &.off
-                    background #fff
-                    .switch_text
-                        float right
-                        color #ddd
-                &.on
-                    background #02a774
-                >.switch_circle
-                    //transform translateX(27px)
-                    position absolute
-                    top -1px
-                    left -1px
-                    width 16px
-                    height 16px
-                    border 1px solid #ddd
-                    border-radius 50%
-                    background #fff
-                    box-shadow 0 2px 4px 0 rgba(0,0,0,.1)
-                    transition transform .3s
+                top 50%
+
 
 </style>
